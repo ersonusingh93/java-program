@@ -6,7 +6,6 @@ class Addition{
         int num1 = sc.nextInt();
         System.out.println("Enter Second number : ");
         int num2 = sc.nextInt();
-
         int sum = num1 + num2;
         System.out.println("Addition of two numbers are : "+sum);
         sc.close();
