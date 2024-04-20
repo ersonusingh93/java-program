@@ -1,0 +1,70 @@
+Advanced Java Programming : 
+
+As per sun microsystem  standards the java divided into three parts : 
+1.j2se : java 2 standard edition : Core Java + JDBC
+2.j2ee : java 2 enterprise edition : servlets , jsp, jstl, jpa webservices EJB xml....
+3.j2me : java 2 macro edition
+
+Advanced Java Syllabus : 
+1.JDBC : Java Database connectivity
+2.Servlets : 
+3.JSP : Java Server Pages
+4.JSTL : java standard tag library
+
+Technologies Vs. Framework
+Technologies : 
+j2se
+j2ee
+j2me
+EJB : Enterprise Java Beans
+Frameworks : 
+Spring
+hibernate(ORM : Object relational model)
+JSF : Java Server Faces
+Struts
+
+What are different types of applications in java?
+There are four types of application : 
+1. standalone / desktop / window application : J2SE : .jar files
+2.Web application		:Servlet , JSP  : Struts(Servlet), JSF(Build on top of JSP) : .war files
+3.Enterprise application : EJB : Spring : .ear file
+4.Distributed application : Web Serices(SOAP-->XML REST - Json) : .aar files
+
+.jar : java archive file
+.war : web archive file
+.ear : enterprise archive file
+.aar file : application archive file
+
+Level 1 : 
+Core Java
+Advanced Java
+Level 2 : 
+Spring and Spring Boot Web Services
+Level 3 : 
+Hibernate : 
+
+Lec 2 : 
+Advanced Java : 
+JDBC
+Servlets
+JSP
+Web application : 3 Tier 
+Client 		Server		 Database
+
+Servlets : 
+Web Applications : 
+3-tier Architecture : 
+
+	client 			server			database
+	Html			servlets
+	Css			jsp
+	Js			spring
+	React			struts
+	Angular			EJB
+
+Servlets Introduction : 
+	a.servlets are used to write the programm at server side 
+	b.Servlet is a object executed at server side
+
+
+
