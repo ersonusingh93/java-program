@@ -1,0 +1,86 @@
+Advanced Java Programming :
+As per sunmicrosystem Java divided into three parts : 
+1.j2se : java 2 standard edition : core java + jdbc
+2.j2ee : java 2 enterprise edition : servlet, jsp, jstl, jpa webservices, EJB, XML....
+3.j2me : java 2 macro edition
+
+Advanced Java : 
+JDBC : Crud operation : Java Database Connectivity
+Servlets : 
+JSP : Java server pages
+JSTL : java standard tag library
+
+Technologies Vs Framework :
+Technologies : 
+j2se
+j2ee
+j2me
+EJB : Enterprise Java Beans
+Framework : 
+Spring
+hibernate(ORM - Object Relational Model)
+JSF : java server faces
+struts
+
+What are different types of application in java ? 
+There are four types of applications in java : 
+Standalone/desktop/window application  - .jar file
+web application : Servlet, JSP - .war file
+Struts : It is build in top of Servlet
+JSF : It is Build in top of JSP
+Enterprise application : EJB : Spring - .ear file
+Distributed application : Web services (SOAP->XML, REST->JSOM) -> .aar file
+
+.jar : java archive file
+.war : web archive file
+.ear : enterprise archive file
+.aar : application archive file
+
+Servlet : 
+Web application : 3 tier 
+
+3-tier architecture : 
+client 		server		database 
+HTML		servlet		mysql
+CSS		jsp		oracle
+JS		spring
+React		struts
+Angular		ejb
+
+Servlet : 
+Servlets are use to write the programm at server side
+Servlet is a object executed at server side
+Servlets are used to design the request-response programming model
+
+Note : 
+Core java application are executed by : JVM(Java Virtual machine)
+Oracle queries are executed by : DBE(Database Engine)
+Servlets are executed by : Servers
+
+Different Types of Servers : 
+Server Name			Vendor
+Tomcat		------>		Apache Software foundation
+WebLogic	------>    	Oracle
+Websphere	------> 	IBM
+JBoss		------> 	redhat
+glassfish 	------> 	sun microsystem(Oracle)
+
+There are two types of servers : 
+web servers : supports only web applications
+	web server contains web containers
+	web container = servlet container + jsp engine
+			servlet engine	     jaspher
+			catalina 
+	ex : IIS, Jetty etc
+Application Server : support web application and enterprise application
+	Application server contains web container and EJB Container
+	Web Container : It supports web application
+	EJB Container : It supports Enterpise application
+	ex : tomcat, weblogic, websphere......
+Assignment : 
+What is difference between Common gateway interface(CG) and Servlet?
+
+Servlet Predefined Packages : 
+javax.servlet  ---------> This package will handle the normal request and response
+javax.servlet.http -------> This package will handle the http request and response
+javax.servlet.annotation -----> This package will handle the annotations.
