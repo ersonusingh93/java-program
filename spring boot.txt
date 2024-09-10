@@ -1,0 +1,323 @@
+SQL DB : Driver : JDBC : JPA : Spring Configuration : Http : Tomcat
+
+Spring Boot  : 
+Autoconfiguration
+Embedded Server
+External Configurations
+
+
+Dependency Injection : 
+
+Loose Coupling
+
+
+Production Database
+
+Staging Database : 
+
+Create a class ProDB : 
+package com.tcs.sonu.springapi;
+
+public class ProDB {
+    public String getData(){
+        return "Production Data";
+    }
+}
+
+if we have to use it make a  object in main class
+
+class BootApi.java
+package com.tcs.sonu.springapi;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class BootapiApplication implements CommandLineRunner {
+	ProDB proDB;
+
+	public static void main(String[] args) {
+		SpringApplication.run(BootapiApplication.class, args);
+
+		proDB = new ProDB();
+		System.out.println(proDB.getData());
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+
+	}
+}
+
+
+if we have required dev data : 
+
+DevDB.java - create it
+package com.tcs.sonu.springapi;
+
+public class DevDB {
+    public String getData(){
+        return "Dev Data";
+
+    }
+}
+
+
+create a interface : 
+DB.java
+
+package com.tcs.sonu.springapi;
+
+public interface DB {
+    public String getData();
+}
+
+package com.tcs.sonu.springapi;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class BootapiApplication implements CommandLineRunner {
+	DB db;
+
+
+	public static void main(String[] args) {
+		SpringApplication.run(BootapiApplication.class, args);
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		db = new ProDB();
+		System.out.println(db.getData());
+
+	}
+}
+
+still these are tightly coupled
+
+
+then create package and use annotations for loosely coupled.
+
+First Package : 
+configuration : 
+then create a class : 
+AppConfig.java
+package com.tcs.sonu.springapi.configuration;
+
+
+import com.tcs.sonu.springapi.DB;
+import com.tcs.sonu.springapi.DevDB;
+import com.tcs.sonu.springapi.ProDB;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class AppConfig {
+    @Bean
+    public DB getDevBean(){
+        return new DevDB();
+    }
+
+    @Bean
+    public DB getProdDBBean(){
+        return new ProDB();
+    }
+
+}
+
+why error getting multiple beans
+
+package com.tcs.sonu.springapi.configuration;
+
+
+import com.tcs.sonu.springapi.DB;
+import com.tcs.sonu.springapi.DevDB;
+import com.tcs.sonu.springapi.ProDB;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class AppConfig {
+    @Bean
+    @ConditionalOnProperty(name = "project.mode", havingValue = "development")
+    public DB getDevBean(){
+        return new DevDB();
+    }
+
+    @Bean
+    @ConditionalOnProperty(name = "project.mode", havingValue = "production")
+    public DB getProdDBBean(){
+        return new ProDB();
+    }
+
+}
+
+you can also set edit configuration in editor : 
+
+PROJECT_MODE = development => highest priority
+
+Spring Boot Rest Api Development : 
+
+Presentation Layer : @Controller
+
+package com.tcs.sonu.springapi.controllers;
+
+//operations to be performed :
+//GET /employees
+//POST /employees
+//Delete /employees/{id}
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class EmployeeController {
+
+    @GetMapping(path = "/employees")
+    public String getEmployees() {
+        return "Hello World";
+    }
+
+}
+
+
+package com.tcs.sonu.springapi.controllers;
+
+//operations to be performed :
+//GET /employees
+//POST /employees
+//Delete /employees/{id}
+
+import com.tcs.sonu.springapi.dto.EmployeDTO;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.time.LocalDate;
+
+@RestController
+public class EmployeeController {
+
+    @GetMapping(path = "/employees")
+//    public String getEmployees() {
+//        return "Hello World";
+//    }
+    public EmployeDTO getEmployee() {
+        return new EmployeDTO(12l, "Sonu", LocalDate.of(2024,10,21), true);
+    }
+
+}
+
+
+
+package com.tcs.sonu.springapi.controllers;
+
+//operations to be performed :
+//GET /employees
+//POST /employees
+//Delete /employees/{id}
+
+import com.tcs.sonu.springapi.dto.EmployeDTO;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.time.LocalDate;
+
+@RestController
+public class EmployeeController {
+
+//    @GetMapping(path = "/employees")
+//    public String getEmployees() {
+//        return "Hello World";
+//    }
+//    public EmployeDTO getEmployee() {
+//        return new EmployeDTO(12l, "Sonu", LocalDate.of(2024,10,21), true);
+//    }
+
+    @GetMapping(path = "/employees/{id}")
+    public EmployeDTO getemployees(@PathVariable("id") Long employeeId){
+        return new EmployeDTO(employeeId, "Sonu", LocalDate.of(2024,2,2), true);
+    }
+
+}
+
+Service Layer : 
+Persistence Layer : 
+
+dto  package : 
+package com.tcs.sonu.springapi.dto;
+
+import java.time.LocalDate;
+
+public class EmployeDTO {
+    private Long id;
+    private String name;
+    private LocalDate dateOfJoining;
+    private boolean isActive;
+
+    public EmployeDTO(Long id, String name, LocalDate dateOfJoining, boolean isActive) {
+        this.id = id;
+        this.name = name;
+        this.dateOfJoining = dateOfJoining;
+        this.isActive = isActive;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public LocalDate getDateOfJoining() {
+        return dateOfJoining;
+    }
+
+    public void setDateOfJoining(LocalDate dateOfJoining) {
+        this.dateOfJoining = dateOfJoining;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+}
+
+
+Not required to generate all this 
+use lombok dependency it will automatically generate all things
+
+package com.tcs.sonu.springapi.dto;
+
+import lombok.Data;
+
+import java.time.LocalDate;
+
+@Data
+public class EmployeDTO {
+    private Long id;
+    private String name;
+    private LocalDate dateOfJoining;
+    private boolean isActive;
+}
+
+
+
+
+
